@@ -1,8 +1,12 @@
 import React from 'react';
 
+// firbase
+import {firestore} from "./firebase";
+
 // Route 라이브러리
 import { Route, Switch } from 'react-router-dom'
 import {withRouter} from 'react-router';
+
 
 // moment 라이브러리
 import moment from 'moment';
@@ -26,6 +30,8 @@ import './test.css';
 // meterial UI
 import Fab from '@material-ui/core/Fab';
 import EditIcon from '@material-ui/icons/Edit';
+import Button from '@material-ui/core/Button';
+
 
 // 클래스형 컴포넌트
 class App extends React.Component {
@@ -41,6 +47,12 @@ class App extends React.Component {
       // 선택된 날, 날짜는 YYYY-MM-DD 형식으로 표시
       selected: moment().format("YYYY-MM-DD")
     }
+  }
+
+  componentDidMount(){
+    console.log((this.state.yearAndMonth).format('YYYY-MM-DD'));
+    console.log(Math.floor((this.state.yearAndMonth).unix() / 60000));
+    console.log(this.props);
   }
   
   static defaultProps = {
@@ -76,6 +88,7 @@ class App extends React.Component {
     }
   }
 
+
   // 렌더 함수 안에 리액트 앨리먼트 넣기
   render() {
     return(
@@ -100,6 +113,7 @@ class App extends React.Component {
                   changeSeleted = {this.changeSeleted}
                   />
                   {/* 플로팅 버튼 */}
+                  <Button variant="contained">상세 일정 보기</Button>
                   <Fab color="primary">
                   <EditIcon 
                   onClick={() =>

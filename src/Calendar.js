@@ -57,7 +57,14 @@ class Calendar extends React.Component {
 
 // 달력의 주를 표현하는 클래스
 class Week extends React.Component {
-    state = {}
+  constructor() {
+    super();
+    this.state = {
+      // 모달창 상태
+      ModalOn: false,
+    }
+  }
+
     // moment 객체를 array에 넣어 반환하는 함수
     saveDates = (firstDate) => {
       const dates = [];
