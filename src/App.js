@@ -1,5 +1,9 @@
 import React from 'react';
 
+// Route 라이브러리
+import { Route, Switch } from 'react-router-dom'
+import {withRouter} from 'react-router';
+
 // moment 라이브러리
 import moment from 'moment';
 
@@ -7,8 +11,21 @@ import moment from 'moment';
 import Header from './Header';
 import Calendar from './Calendar';
 
+// 스케쥴 컴포넌트
+import Schedule from './Schedule';
+
+//  시작 스크린
+import FirstScreen from './FirstScreen';
+
+// Not Found
+import NotFound from './NotFound'
+
 // test용 css
 import './test.css';
+
+// meterial UI
+import Fab from '@material-ui/core/Fab';
+import EditIcon from '@material-ui/icons/Edit';
 
 // 클래스형 컴포넌트
 class App extends React.Component {
@@ -63,25 +80,44 @@ class App extends React.Component {
   render() {
     return(
     <div className="App">
-      <div className="container">
-        {/* Header에 props로 오늘 연, 월, 일 전달 */}
-        <Header
-        // Header props
-        yearAndMonth = {this.state.yearAndMonth.format("YYYY년 MM월")}
-        today = {this.state.today.format("오늘 YYYY - MM - DD")}
-        moveMonth = {this.moveMonth}
-        />
-        <Calendar
-        // Calendar props
-        calendarYM = {this.state.yearAndMonth.format("YYYY-MM-DD")}
-        daysArray = {this.state.daysArray}
-        selected = {this.state.selected}
-        changeSeleted = {this.changeSeleted}
-        />
-      </div>
+      {/* 라우트, 스위치 적용 */}
+        <Switch>
+          <Route path="/" exact component={FirstScreen}/>
+          <Route path="/calendar"
+                render={(props) => (
+                <div className="container">
+                  <Header
+                  // Header props
+                  yearAndMonth = {this.state.yearAndMonth.format("YYYY년 MM월")}
+                  today = {this.state.today.format("오늘 YYYY - MM - DD")}
+                  moveMonth = {this.moveMonth}
+                  />
+                  <Calendar
+                  // Calendar props
+                  calendarYM = {this.state.yearAndMonth.format("YYYY-MM-DD")}
+                  daysArray = {this.state.daysArray}
+                  selected = {this.state.selected}
+                  changeSeleted = {this.changeSeleted}
+                  />
+                  {/* 플로팅 버튼 */}
+                  <Fab color="primary">
+                  <EditIcon 
+                  onClick={() =>
+                    this.props.history.push('/schedule')
+                  }/>
+                  </Fab>
+                </div>
+                )}/>
+          <Route path="/schedule"
+          render={(props) => (
+          <Schedule/>
+          )}/>
+          {/* Not Found */}
+          <Route component={NotFound}/>
+        </Switch>
     </div>
     );
   }
 }
 
-export default App;
+export default withRouter(App);

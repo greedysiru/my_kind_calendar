@@ -1,5 +1,5 @@
 .App {
-  width: 100vw;
+  width: 90vw;
   height: 80vh;
   border: 1px solid black;
 }
@@ -13,6 +13,8 @@
 }
 
 .Header {
+  display: flex;
+  justify-content: space-between;
   flex-basis: 50px;
   background-color: rgb(224, 215, 202);
 }
@@ -45,6 +47,7 @@
 }
 
 .date {
+  text-align: right;
   box-sizing: border-box;
   position: relative;
   flex-basis: 14.2857143%;
@@ -60,4 +63,18 @@
 
 .selected {
   background-color: aliceblue;
+}
+
+.FirstScreen {
+  width: 100%;
+  height: 100%;
+}
+
+/* 스케쥴 */
+.Schedule {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
 }

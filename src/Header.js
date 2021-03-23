@@ -1,8 +1,8 @@
 import React from 'react';
 
 // 아이콘 가져오기
-import { AiFillCaretLeft } from "react-icons/ai";
-import { AiFillCaretRight } from "react-icons/ai";
+import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
+import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 
 // 클래스형 컴포넌트
 class Header extends React.Component {
@@ -23,12 +23,12 @@ class Header extends React.Component {
       </div>
       <div>
         {/* 이전 월 이동 버튼 */}
-        <AiFillCaretLeft
+        <ArrowLeftIcon
         onClick = {() => {this.props.moveMonth(-1)}}
         />
         {this.props.today}
         {/* 다음 월 이동 버튼 */}
-        <AiFillCaretRight
+        <ArrowRightIcon
         onClick = {() => {this.props.moveMonth(1)}}
         />
       </div>
