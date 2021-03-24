@@ -68,6 +68,10 @@ class Calendar extends React.Component {
       // 파이어 베이스 불러오기
       this.props.load();
     }
+
+    componentDidUpdate(){
+      this.props.load();
+    }
   
   
   // 이번달에 대한 정보를 파라미터로 전달받고 이를 이용해서 1일의 시작과 요일을 알아내는 함수

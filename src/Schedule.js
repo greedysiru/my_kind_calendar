@@ -6,7 +6,7 @@ import {withRouter} from 'react-router';
 // 리덕스 스토어 연결
 import { connect } from 'react-redux';
 // 액션 생성 함수 가져오기
-import {createSchedule, createScheduleFB} from './redux/modules/schedule';
+import {createScheduleFB} from './redux/modules/schedule';
 
 
 
@@ -47,6 +47,7 @@ export function DateTimePickers(props) {
         onChange={(event)=>{
           dateTime = event.target.value
         }}
+        defaultValue=""
         id="datetime-local"
         label="일정"
         type="datetime-local"
@@ -135,6 +136,10 @@ class Schedule extends React.Component {
     const new_text = this.text.current.value;
     const new_dateTime = dateTime;
     const new_radioSelected = radioSelected;
+    // 날짜, 시간 필수 입력 경고창
+    if (new_text =="" || new_dateTime == ""){
+      window.alert('날짜와 시간을 전부 입력해주십시오.')
+    } else{
     // 문자열 자르기
     let split_dateTime = new_dateTime.split('T');
     // 실제 시간 저장
@@ -151,10 +156,11 @@ class Schedule extends React.Component {
     // 스토어에 저장
     this.props.create(new_plan);
     // 뒤로가기
-    this.props.history.goBack();
+    this.props.history.goBack();}
   }
   // 렌더링
   componentDidMount(){
+    dateTime = ""
   }
 
   // 리렌더링

@@ -60,7 +60,6 @@ class Modal extends React.Component {
     }
     this.props.delete(delete_item);
     this.props.turnOffModal();
-    this.props.load();
   }
   
   // 렌더 함수 안에 리액트 앨리먼트 넣기

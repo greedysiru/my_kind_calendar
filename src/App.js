@@ -127,7 +127,7 @@ class App extends React.Component {
                    className = "filteringButton" 
                    onClick = {this.fnFiltering}
                    >
-                  {this.state.filtering ? '모든 일정 보기' : '완료 일정 보기'}                    
+                  {!this.state.filtering ? '모든 일정 보기' : '완료 일정 보기'}                    
                     </Button>
                   <Fab 
                   color="primary"
