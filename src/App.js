@@ -1,6 +1,6 @@
 import React from 'react';
 
-// firbase
+// firebase
 import {firestore} from "./firebase";
 
 // Route 라이브러리
@@ -59,6 +59,8 @@ class App extends React.Component {
   }
 
   componentDidMount(){
+    // const good = firestore.collection("calendar");
+    // good.add({text:"확인"});
   }
   
   static defaultProps = {

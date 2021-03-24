@@ -6,7 +6,7 @@ import {withRouter} from 'react-router';
 // 리덕스 스토어 연결
 import { connect } from 'react-redux';
 // 액션 생성 함수 가져오기
-import {createSchedule} from './redux/modules/schedule';
+import {createSchedule, createScheduleFB} from './redux/modules/schedule';
 
 
 
@@ -115,7 +115,7 @@ const mapStateTopProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   
   create: (new_item) => {
-    dispatch(createSchedule(new_item));
+    dispatch(createScheduleFB(new_item));
   }
 }); 
 
@@ -148,21 +148,17 @@ class Schedule extends React.Component {
                     completed: false, 
                     text: new_text, 
                     color: new_radioSelected}
-                    
-    console.log("스케쥴 추가");
     // 스토어에 저장
     this.props.create(new_plan);
     // 뒤로가기
     this.props.history.goBack();
   }
-  // 렌더링 props
+  // 렌더링
   componentDidMount(){
-    console.log(this.props.plan);
   }
 
-  // 리렌더링 props
+  // 리렌더링
   componentDidUpdate(prevProps, prevState){
-    console.log(prevProps.plan);
 }
 
   render(){

@@ -3,10 +3,13 @@ import React from 'react';
 // moment 라이브러리
 import moment from 'moment';
 
+// firebase
+import {firestore} from "./firebase";
+
 // redux
 import {connect} from 'react-redux';
 // 액션 생성 함수
-import {loadSchedule} from './redux/modules/schedule';
+import {loadSchedule, loadscheduleFB} from './redux/modules/schedule';
 
 // 달력 구성 컴포넌트
 import Dayheader from "./Dayheader";
@@ -24,7 +27,7 @@ const mapStateTopProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   
   load: () => {
-    dispatch(loadSchedule());
+    dispatch(loadscheduleFB());
   }
 }); 
 
@@ -48,7 +51,6 @@ class Calendar extends React.Component {
   // 모달창 띄우기
    turnOnModal = (e) => {
     this.state.modalStatus = true;
-    console.log("모달 켜짐")
     this.state.modalPlanText = e.target.dataset.text;
     this.state.modalPlanDate = e.target.dataset.date;
     this.state.modalPlanCompleted = e.target.dataset.completed;
@@ -57,14 +59,14 @@ class Calendar extends React.Component {
     // 모달창 끄기
   turnOffModal = (e) => {
     this.state.modalStatus = false
-    console.log("모달 꺼짐")
     this.forceUpdate();
   }
 
 
   
     componentDidMount(){
-
+      // 파이어 베이스 불러오기
+      this.props.load();
     }
   
   

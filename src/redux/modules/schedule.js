@@ -1,3 +1,5 @@
+import {firestore} from '../../firebase';
+
 // Actions
 const LOAD = 'schedule/LOAD';
 const CREATE = 'schedule/CREATE';
@@ -51,14 +53,67 @@ export const deleteSchedule = (schedule) => {
   return {type: DELETE, schedule};
 }
 
+const schedule_db = firestore.collection("calendar");
+// 파이어베이스와 통신하는 부분
+export const loadscheduleFB = () => {
+  return function (dispatch) {
+    schedule_db.get().then((docs) => {
+      let schedule_data = [];
+      docs.forEach((doc) => {
+        if(doc.exists){
+          schedule_data = [...schedule_data, {id: doc.id, ...doc.data()}];
+        }
+      });
+      dispatch(loadSchedule(schedule_data));
+    })
+  }
+}
+
+export const createScheduleFB = (schedule) => {
+  return function (dispatch) {
+    let schedule_data = {...schedule};
+    schedule_data = schedule_data
+    console.log(schedule_data)
+    schedule_db.add(schedule_data).then((docRef) => {
+      schedule_data = {...schedule_data,};
+      dispatch(createSchedule(schedule_data));
+    }).catch((err) => {
+      window.alert('오류가 발생했습니다. 다시 시도해주십시오.')
+    });
+  };
+};
+
+export const updateScheduleFB = (schedule) => {
+  return function (dispatch, getState) {
+    console.log(schedule)
+    let _schedule_data = getState().schedule.plan;
+    console.log(_schedule_data)
+    let schedule_data = {};
+    for (let i = 0; i < _schedule_data.length; i++){
+      if (_schedule_data[i].text === schedule.text && _schedule_data[i].date === schedule.date){
+        schedule_data = _schedule_data[i];
+      }
+    }
+    schedule_data = {...schedule_data, completed: true};
+    schedule_db.doc(schedule_data.id).update(schedule_data).then((res) => {
+      dispatch(updateSchedule(schedule));
+    }).catch((err) => {
+      console.log('err');
+    });
+  };
+};
+
 // Reducer
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case "schedule/LOAD":{
-      return state;}
+      if(action.schedule.length > 0){
+        return {plan: action.schedule};
+      }
+      return state;
+    }
 
     case "schedule/CREATE":{
-      console.log('create')
       const new_schedule_plan = [...state.plan, action.schedule];
       return {plan: new_schedule_plan};}
 

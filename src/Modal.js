@@ -4,7 +4,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 // 리덕스 액션 생성 함수
-import {updateSchedule, deleteSchedule} from './redux/modules/schedule';
+import {updateSchedule, deleteSchedule, updateScheduleFB} from './redux/modules/schedule';
 
 // material-ui
 import Button from '@material-ui/core/Button';
@@ -18,7 +18,7 @@ const mapStateTopProps = (state) => ({
 // 액션 생성 함수를 props로
 const mapDispatchToProps = (dispatch) => ({
   update: (update_item) => {
-    dispatch(updateSchedule(update_item));
+    dispatch(updateScheduleFB(update_item));
   },
   delete: (delete_item) => {
     dispatch(deleteSchedule(delete_item));
@@ -36,7 +36,6 @@ class Modal extends React.Component {
   }
   
   componentDidMount(){
-    console.log(this.props)
   }
 
   // completed 업데이트 함수
