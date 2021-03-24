@@ -4,7 +4,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 // 리덕스 액션 생성 함수
-import {updateSchedule, deleteSchedule, updateScheduleFB} from './redux/modules/schedule';
+import {deleteScheduleFB, updateScheduleFB, loadscheduleFB} from './redux/modules/schedule';
 
 // material-ui
 import Button from '@material-ui/core/Button';
@@ -21,7 +21,10 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(updateScheduleFB(update_item));
   },
   delete: (delete_item) => {
-    dispatch(deleteSchedule(delete_item));
+    dispatch(deleteScheduleFB(delete_item));
+  },
+  load: () => {
+    dispatch(loadscheduleFB());
   }
 }); 
 
@@ -36,6 +39,7 @@ class Modal extends React.Component {
   }
   
   componentDidMount(){
+    
   }
 
   // completed 업데이트 함수
@@ -52,10 +56,11 @@ class Modal extends React.Component {
   deleteSchedule = () => {
     const delete_item = {
       date: this.props.planDate,
-      time: this.props.planTime,
+      text: this.props.planText,
     }
     this.props.delete(delete_item);
     this.props.turnOffModal();
+    this.props.load();
   }
   
   // 렌더 함수 안에 리액트 앨리먼트 넣기

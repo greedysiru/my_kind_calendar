@@ -9,7 +9,7 @@ import {firestore} from "./firebase";
 // redux
 import {connect} from 'react-redux';
 // 액션 생성 함수
-import {loadSchedule, loadscheduleFB} from './redux/modules/schedule';
+import {loadscheduleFB} from './redux/modules/schedule';
 
 // 달력 구성 컴포넌트
 import Dayheader from "./Dayheader";

@@ -1,3 +1,4 @@
+import { Schedule } from '@material-ui/icons';
 import {firestore} from '../../firebase';
 
 // Actions
@@ -53,8 +54,8 @@ export const deleteSchedule = (schedule) => {
   return {type: DELETE, schedule};
 }
 
+// 파이어베이스와 연동
 const schedule_db = firestore.collection("calendar");
-// 파이어베이스와 통신하는 부분
 export const loadscheduleFB = () => {
   return function (dispatch) {
     schedule_db.get().then((docs) => {
@@ -85,9 +86,7 @@ export const createScheduleFB = (schedule) => {
 
 export const updateScheduleFB = (schedule) => {
   return function (dispatch, getState) {
-    console.log(schedule)
     let _schedule_data = getState().schedule.plan;
-    console.log(_schedule_data)
     let schedule_data = {};
     for (let i = 0; i < _schedule_data.length; i++){
       if (_schedule_data[i].text === schedule.text && _schedule_data[i].date === schedule.date){
@@ -101,6 +100,25 @@ export const updateScheduleFB = (schedule) => {
       console.log('err');
     });
   };
+};
+
+export const deleteScheduleFB = (schedule) => {
+  return function (dispatch, getState) {
+  let _schedule_data = getState().schedule.plan;
+  let schedule_data = {};
+  for (let i = 0; i < _schedule_data.length; i++){
+    if (_schedule_data[i].text === schedule.text && _schedule_data[i].date === schedule.date){
+      schedule_data = _schedule_data[i];
+    }
+  }
+  console.log(schedule_data.id)
+  console.log(schedule)
+  schedule_db.doc(schedule_data.id).delete().then((res) => {
+    dispatch(deleteSchedule(Schedule));
+  }).catch((err) => {
+    console.log('err');
+  });
+};
 };
 
 // Reducer
