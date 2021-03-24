@@ -2,6 +2,7 @@
 const LOAD = 'schedule/LOAD';
 const CREATE = 'schedule/CREATE';
 const UPDATE = 'schedule/UPDATE';
+const DELETE = 'schedule/DELETE';
 
 // 초기값
 const initialState = {
@@ -46,6 +47,10 @@ export const updateSchedule = (schedule) => {
   return {type: UPDATE, schedule};
 }
 
+export const deleteSchedule = (schedule) => {
+  return {type: DELETE, schedule};
+}
+
 // Reducer
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
@@ -58,14 +63,22 @@ export default function reducer(state = initialState, action = {}) {
       return {plan: new_schedule_plan};}
 
     case "schedule/UPDATE":{
-      const shcedule_plan = state.plan.map((l, idx) => {
+      const schedule_plan = state.plan.map((l, idx) => {
         if(l.text ===  action.schedule.text && l.date === action.schedule.date){
           return {...l, completed: true};
         } else {
           return l;
         }
       })
-      return {plan: shcedule_plan};
+      return {plan: schedule_plan};
+    }
+    case "schedule/DELETE": {
+      const schedule_plan = state.plan.filter((l, idx) => {
+        if(l.date !== action.schedule.date && l.time !== action.schedule.time){
+          return l;
+        } 
+      });
+      return {plan: schedule_plan};
     }
 
     default:

@@ -4,7 +4,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 // 리덕스 액션 생성 함수
-import {updateSchedule} from './redux/modules/schedule';
+import {updateSchedule, deleteSchedule} from './redux/modules/schedule';
 
 // material-ui
 import Button from '@material-ui/core/Button';
@@ -17,9 +17,11 @@ const mapStateTopProps = (state) => ({
 
 // 액션 생성 함수를 props로
 const mapDispatchToProps = (dispatch) => ({
-  
   update: (update_item) => {
     dispatch(updateSchedule(update_item));
+  },
+  delete: (delete_item) => {
+    dispatch(deleteSchedule(delete_item));
   }
 }); 
 
@@ -33,18 +35,28 @@ class Modal extends React.Component {
     };
   }
   
+  componentDidMount(){
+    console.log(this.props)
+  }
+
   // completed 업데이트 함수
   updateCompleted = () => {
     const update_item = {
       text: this.props.planText,
       date: this.props.planDate,
     }
-    console.log(this.props)
-    console.log(update_item)
     this.props.update(update_item);
-    console.log(this.props.planCompleted)
-    console.log("실행")
     this.props.turnOffModal()
+  }
+
+  // 삭제 함수
+  deleteSchedule = () => {
+    const delete_item = {
+      date: this.props.planDate,
+      time: this.props.planTime,
+    }
+    this.props.delete(delete_item);
+    this.props.turnOffModal();
   }
   
   // 렌더 함수 안에 리액트 앨리먼트 넣기
@@ -61,7 +73,7 @@ class Modal extends React.Component {
           닫기
         </Button>
         <Button
-         
+         onClick={this.deleteSchedule}
         >
           삭제
         </Button>
