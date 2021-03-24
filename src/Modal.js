@@ -14,7 +14,7 @@ class Modal extends React.Component {
   render() {
     return(
     <div className="Modal">
-      <h1>일정 내용</h1>
+      <h1>{this.props.planText}</h1>
         {/* 컴포넌트 */}
     </div>
     );

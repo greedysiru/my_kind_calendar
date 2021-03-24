@@ -28,7 +28,19 @@ const mapDispatchToProps = (dispatch) => ({
   }
 }); 
 
-
+// 모달창 상태
+let ModalOn = false;
+// 모달에 전달할 정보들
+let modalPlanText = "";
+let modalPlanDate = "";
+let modalPlanCompleted = false;
+// 모달창 띄우기
+function turnModal(e){
+  ModalOn = !ModalOn;
+  modalPlanText = e.target.dataset.text;
+  modalPlanDate = e.target.dataset.date;
+  modalPlanCompleted = e.target.dataset.completed;
+}
 
 // 클래스형 컴포넌트
 class Calendar extends React.Component {
@@ -39,7 +51,7 @@ class Calendar extends React.Component {
     };
   }
 
-    
+
   
     componentDidMount(){
 
@@ -82,6 +94,15 @@ class Calendar extends React.Component {
       daysArray = {this.props.daysArray}
       />
       {this.saveWeeks(this.props.calendarYM)}
+      {ModalOn && (
+            <Modal
+            turnModal = {turnModal}
+            ModalOn = {ModalOn}
+            planText = {modalPlanText}
+            planDate = {modalPlanDate}
+            planCompleted = {modalPlanCompleted}
+            />
+          )}
     </div>
     );
   }
@@ -92,29 +113,33 @@ class Week extends React.Component {
   constructor() {
     super();
     this.state = {
-      // 모달창 상태
-      ModalOn: false,
+
     }
   }
 
     // moment 객체를 array에 넣어 반환하는 함수
     saveDates = (firstDate) => {
       const dates = [];
+      // 스케쥴 배열, 각 요소는 딕셔너리
+      let scheduleArray = this.props.plan
+      // 시간 기준으로 오름차순 정렬
+      const sortingField = "time";
+      scheduleArray.sort(function(a, b){
+        return a[sortingField] - b[sortingField];
+      });
       // 7번 반복
       for (let i = 0; i < 7; i++){
         // add 메소드로 각 날짜에 접근
         const date = moment(firstDate).add('d', i);
         // 스케쥴에 있는 일자인지 검사
         const compareYMD = date.format("YYYY-MM-DD")
-        // 스케쥴 배열, 각 요소는 딕셔너리
-        const scheduleArray = this.props.plan
         // 스케쥴의 갯수
         const scheduleEA = scheduleArray.length
         // 해당 일자의 스케쥴을 저장할 배열
         const thisDaySchedule = [];
+        // 스케쥴을 탐색하여 같은 일자이면 배열에 저장
         for (let i = 0; i < scheduleEA; i++){
           if (compareYMD === scheduleArray[i].date){
-            console.log("yes")
             thisDaySchedule.push({
                                   date: scheduleArray[i].date, 
                                   time: scheduleArray[i].time,
@@ -163,13 +188,7 @@ class Week extends React.Component {
         if(moment(dateInfo.yearMonthDay).isSame(seletedDay, 'day')){
           className += " selected"
         }
-        // 모달창 띄우기
-        const turnModal = (e) => {
-          this.setState({
-            ModalOn: !this.state.ModalOn,
-          });
-        };
-        console.log(dateInfo.thisDaySchedule)
+
 
         return (
           <div 
@@ -188,7 +207,10 @@ class Week extends React.Component {
              return (
                <div className = {className}
                key={idx}
-               completed= {plan.completed}
+               data-completed= {plan.completed}
+               onClick={turnModal}
+               data-text = {plan.text}
+               data-date = {plan.date}
                >
                  {plan.text}
               </div>
@@ -196,6 +218,7 @@ class Week extends React.Component {
            })}
           <div className="toDaySchedule">
           </div>
+          
           </div>
         )
       })
