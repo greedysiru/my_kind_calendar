@@ -1,6 +1,7 @@
 // Actions
 const LOAD = 'schedule/LOAD';
 const CREATE = 'schedule/CREATE';
+const UPDATE = 'schedule/UPDATE';
 
 // 초기값
 const initialState = {
@@ -41,15 +42,31 @@ export const createSchedule = (schedule) => {
   return {type: CREATE, schedule};
 }
 
+export const updateSchedule = (schedule) => {
+  return {type: UPDATE, schedule};
+}
+
 // Reducer
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
-    case "schedule/LOAD":
-      return state;
+    case "schedule/LOAD":{
+      return state;}
 
-    case "schedule/CREATE":
+    case "schedule/CREATE":{
+      console.log('create')
       const new_schedule_plan = [...state.plan, action.schedule];
-      return {plan: new_schedule_plan};
+      return {plan: new_schedule_plan};}
+
+    case "schedule/UPDATE":{
+      const shcedule_plan = state.plan.map((l, idx) => {
+        if(l.text ===  action.schedule.text && l.date === action.schedule.date){
+          return {...l, completed: true};
+        } else {
+          return l;
+        }
+      })
+      return {plan: shcedule_plan};
+    }
 
     default:
       return state;

@@ -90,6 +90,7 @@ class Calendar extends React.Component {
         // 스토어의 스케쥴
         plan = {this.props.plan}
         turnOnModal = {this.turnOnModal}
+        filtering = {this.props.filtering}
         />
       ))
     }
@@ -149,6 +150,7 @@ class Week extends React.Component {
         // 해당 일자의 스케쥴을 저장할 배열
         const thisDaySchedule = [];
         // 스케쥴을 탐색하여 같은 일자이면 배열에 저장
+        if (this.props.filtering){
         for (let i = 0; i < scheduleEA; i++){
           if (compareYMD === scheduleArray[i].date){
             thisDaySchedule.push({
@@ -159,6 +161,19 @@ class Week extends React.Component {
                                   text: scheduleArray[i].text, 
                                   color: scheduleArray[i].color
                           });
+          }
+        }} else {
+          for (let i = 0; i < scheduleEA; i++){
+            if (compareYMD === scheduleArray[i].date && scheduleArray[i].completed){
+              thisDaySchedule.push({
+                                    date: scheduleArray[i].date, 
+                                    time: scheduleArray[i].time,
+                                    realTime: scheduleArray[i].realTime, 
+                                    completed: scheduleArray[i].completed, 
+                                    text: scheduleArray[i].text, 
+                                    color: scheduleArray[i].color
+                            });
+            }
           }
         }
         // 정보를 array에 넣기

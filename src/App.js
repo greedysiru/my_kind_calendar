@@ -45,13 +45,20 @@ class App extends React.Component {
       // days 배열
       daysArray: ["일", "월", "화", "수", "목", "금", "토"],
       // 선택된 날, 날짜는 YYYY-MM-DD 형식으로 표시
-      selected: moment().format("YYYY-MM-DD")
+      selected: moment().format("YYYY-MM-DD"),
+      // true: 모든 일정, false: 완료 일정 필터링
+      filtering: true
     }
+    this.fnFiltering = this.fnFiltering.bind(this);
+  }
+
+  fnFiltering(){
+    this.setState(state => ({
+      filtering: !state.filtering
+    }))
   }
 
   componentDidMount(){
-    console.log((this.state.yearAndMonth).format('YYYY-MM-DD'));
-    console.log(Math.floor((this.state.yearAndMonth).unix() / 60000));
   }
   
   static defaultProps = {
@@ -110,9 +117,16 @@ class App extends React.Component {
                   daysArray = {this.state.daysArray}
                   selected = {this.state.selected}
                   changeSeleted = {this.changeSeleted}
+                  filtering = {this.state.filtering}
                   />
                   {/* 플로팅 버튼 */}
-                  <Button variant="contained">상세 일정 보기</Button>
+                  <Button
+                   variant="contained"
+                   className = "filteringButton" 
+                   onClick = {this.fnFiltering}
+                   >
+                  {this.state.filtering ? '모든 일정 보기' : '완료 일정 보기'}                    
+                    </Button>
                   <Fab 
                   color="primary"
                   onClick={() =>
