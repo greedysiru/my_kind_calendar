@@ -28,19 +28,9 @@ const mapDispatchToProps = (dispatch) => ({
   }
 }); 
 
-// 모달창 상태
-let ModalOn = false;
-// 모달에 전달할 정보들
-let modalPlanText = "";
-let modalPlanDate = "";
-let modalPlanCompleted = false;
-// 모달창 띄우기
-function turnModal(e){
-  ModalOn = !ModalOn;
-  modalPlanText = e.target.dataset.text;
-  modalPlanDate = e.target.dataset.date;
-  modalPlanCompleted = e.target.dataset.completed;
-}
+
+
+
 
 // 클래스형 컴포넌트
 class Calendar extends React.Component {
@@ -48,7 +38,27 @@ class Calendar extends React.Component {
     super(props);
     // App 컴포넌트의 state 정의
     this.state = {
+      modalStatus: false,
+    // 모달에 전달할 정보들
+      modalPlanText : "",
+      modalPlanDate : "",
+      modalPlanCompleted : false
     };
+  }
+  // 모달창 띄우기
+   turnOnModal = (e) => {
+    this.state.modalStatus = true;
+    console.log("모달 켜짐")
+    this.state.modalPlanText = e.target.dataset.text;
+    this.state.modalPlanDate = e.target.dataset.date;
+    this.state.modalPlanCompleted = e.target.dataset.completed;
+    this.forceUpdate();
+  }
+    // 모달창 끄기
+  turnOffModal = (e) => {
+    this.state.modalStatus = false
+    console.log("모달 꺼짐")
+    this.forceUpdate();
   }
 
 
@@ -79,6 +89,7 @@ class Calendar extends React.Component {
         changeSeleted= {this.props.changeSeleted}
         // 스토어의 스케쥴
         plan = {this.props.plan}
+        turnOnModal = {this.turnOnModal}
         />
       ))
     }
@@ -94,15 +105,15 @@ class Calendar extends React.Component {
       daysArray = {this.props.daysArray}
       />
       {this.saveWeeks(this.props.calendarYM)}
-      {ModalOn && (
+      {this.state.modalStatus && 
             <Modal
-            turnModal = {turnModal}
-            ModalOn = {ModalOn}
-            planText = {modalPlanText}
-            planDate = {modalPlanDate}
-            planCompleted = {modalPlanCompleted}
+            modalStatus = {this.state.modalStatus}
+            planText = {this.state.modalPlanText}
+            planDate = {this.state.modalPlanDate}
+            planCompleted = {this.state.modalPlanCompleted}
+            turnOffModal = {this.turnOffModal}
             />
-          )}
+          }
     </div>
     );
   }
@@ -208,7 +219,7 @@ class Week extends React.Component {
                <div className = {className}
                key={idx}
                data-completed= {plan.completed}
-               onClick={turnModal}
+               onClick={this.props.turnOnModal}
                data-text = {plan.text}
                data-date = {plan.date}
                >

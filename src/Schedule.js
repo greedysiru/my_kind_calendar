@@ -10,7 +10,7 @@ import {createSchedule} from './redux/modules/schedule';
 
 
 
-// meterial-ui
+// material-ui
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import TextField from '@material-ui/core/TextField';
