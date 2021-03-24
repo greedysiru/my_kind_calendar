@@ -6,10 +6,8 @@ import {withRouter} from 'react-router';
 // 리덕스 스토어 연결
 import { connect } from 'react-redux';
 // 액션 생성 함수 가져오기
-import {loadSchedule, createSchedule} from './redux/modules/schedule';
+import {createSchedule} from './redux/modules/schedule';
 
-// Date picker
-import DateTimePickers from './DateTimePickers';
 
 
 // meterial-ui
@@ -20,6 +18,46 @@ import { withStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 import Radio from '@material-ui/core/Radio';
 import { makeStyles } from '@material-ui/core/styles';
+import { ContactlessOutlined } from '@material-ui/icons';
+
+
+// DateTimePickers
+const useStyles = makeStyles((theme) => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: 250,
+  },
+}));
+
+// 바뀐 데이터 값을 받을 전역변수들
+let dateTime = "";
+let radioSelected = "a";
+
+export function DateTimePickers(props) {
+  const classes = useStyles();
+
+  return (
+    <form className={classes.container} noValidate>
+      <TextField
+        onChange={(event)=>{
+          dateTime = event.target.value
+        }}
+        id="datetime-local"
+        label="일정"
+        type="datetime-local"
+        className={classes.textField}
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+    </form>
+  );
+}
 
 // Radio
 const GreenRadio = withStyles({
@@ -37,6 +75,7 @@ export function RadioButtons() {
 
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
+    radioSelected = event.target.value;
   };
 
   return (
@@ -74,9 +113,7 @@ const mapStateTopProps = (state) => ({
 
 // 액션 생성 함수를 props로
 const mapDispatchToProps = (dispatch) => ({
-  load: () => {
-    dispatch(loadSchedule());
-  },
+  
   create: (new_item) => {
     dispatch(createSchedule(new_item));
   }
@@ -96,19 +133,36 @@ class Schedule extends React.Component {
   // 스케쥴 추가 함수
   addSchedulePlan = () => {
     const new_text = this.text.current.value;
-    console.log(new_text);
-    this.props.create(new_text);
+    const new_dateTime = dateTime;
+    const new_radioSelected = radioSelected;
+    // 문자열 자르기
+    let split_dateTime = new_dateTime.split('T');
+    // 실제 시간 저장
+    const realTime = split_dateTime[1];
+    // 시간 : 제거 후 정수형 변환
+    split_dateTime[1] = parseInt(split_dateTime[1].replace(':', ''));
+    // 딕셔너리로 변환
+    const new_plan ={date: split_dateTime[0], 
+                    time: split_dateTime[1],
+                    realTime: realTime, 
+                    completed: false, 
+                    text: new_text, 
+                    color: new_radioSelected}
+                    
+    console.log("스케쥴 추가");
+    // 스토어에 저장
+    this.props.create(new_plan);
+    // 뒤로가기
+    this.props.history.goBack();
   }
   // 렌더링 props
   componentDidMount(){
-    // console.log(this.props.plan);
+    console.log(this.props.plan);
   }
 
   // 리렌더링 props
   componentDidUpdate(prevProps, prevState){
     console.log(prevProps.plan);
-    console.log('리렌더링 후');
-    console.log(prevState.plan);
 }
 
   render(){
@@ -122,10 +176,12 @@ class Schedule extends React.Component {
           required
           id="outlined-required"
           label=""
-          placeholder="일정 입력"
+          placeholder="상세"
           variant="outlined"
         />
-        <RadioButtons/>
+        <div className="Radio">
+        태그 색상<RadioButtons/>
+        </div>
         <ButtonGroup color="primary" aria-label="outlined primary button group">
         <Button
          onClick={()=>{

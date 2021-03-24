@@ -52,7 +52,6 @@ class App extends React.Component {
   componentDidMount(){
     console.log((this.state.yearAndMonth).format('YYYY-MM-DD'));
     console.log(Math.floor((this.state.yearAndMonth).unix() / 60000));
-    console.log(this.props);
   }
   
   static defaultProps = {
@@ -114,11 +113,13 @@ class App extends React.Component {
                   />
                   {/* 플로팅 버튼 */}
                   <Button variant="contained">상세 일정 보기</Button>
-                  <Fab color="primary">
-                  <EditIcon 
+                  <Fab 
+                  color="primary"
                   onClick={() =>
                     this.props.history.push('/schedule')
-                  }/>
+                  }
+                  >
+                  <EditIcon/>
                   </Fab>
                 </div>
                 )}/>

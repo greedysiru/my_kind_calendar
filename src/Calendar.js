@@ -3,8 +3,32 @@ import React from 'react';
 // moment 라이브러리
 import moment from 'moment';
 
+// redux
+import {connect} from 'react-redux';
+// 액션 생성 함수
+import {loadSchedule} from './redux/modules/schedule';
+
 // 달력 구성 컴포넌트
 import Dayheader from "./Dayheader";
+
+// 모달
+import Modal from "./Modal";
+import { FilterTiltShiftSharp } from '@material-ui/icons';
+
+// 스토어가 가진 상태값을 props로
+const mapStateTopProps = (state) => ({
+  plan: state.schedule.plan,
+});
+
+// 액션 생성 함수를 props로
+const mapDispatchToProps = (dispatch) => ({
+  
+  load: () => {
+    dispatch(loadSchedule());
+  }
+}); 
+
+
 
 // 클래스형 컴포넌트
 class Calendar extends React.Component {
@@ -14,6 +38,13 @@ class Calendar extends React.Component {
     this.state = {
     };
   }
+
+    
+  
+    componentDidMount(){
+
+    }
+  
   
   // 이번달에 대한 정보를 파라미터로 전달받고 이를 이용해서 1일의 시작과 요일을 알아내는 함수
   saveWeeks = (monthYear) => {
@@ -24,7 +55,6 @@ class Calendar extends React.Component {
     // 이전 달의 마지막 일요일의 정보
     const firstDayOfWeek = firstDateOfMonth.clone().add('d', -firstDayOfMonth);
     const weeks = [];
-    const className = "week"
     for (let i = 0; i < 6; i++){
       weeks.push((
         <Week key = {`week-${i}`}
@@ -35,6 +65,8 @@ class Calendar extends React.Component {
         firstDateOfWeekformat={firstDayOfWeek.clone().add('d', i * 7).format("YYYY-MM-DD")}
         selected = {this.props.selected}
         changeSeleted= {this.props.changeSeleted}
+        // 스토어의 스케쥴
+        plan = {this.props.plan}
         />
       ))
     }
@@ -72,14 +104,37 @@ class Week extends React.Component {
       for (let i = 0; i < 7; i++){
         // add 메소드로 각 날짜에 접근
         const date = moment(firstDate).add('d', i);
+        // 스케쥴에 있는 일자인지 검사
+        const compareYMD = date.format("YYYY-MM-DD")
+        // 스케쥴 배열, 각 요소는 딕셔너리
+        const scheduleArray = this.props.plan
+        // 스케쥴의 갯수
+        const scheduleEA = scheduleArray.length
+        // 해당 일자의 스케쥴을 저장할 배열
+        const thisDaySchedule = [];
+        for (let i = 0; i < scheduleEA; i++){
+          if (compareYMD === scheduleArray[i].date){
+            console.log("yes")
+            thisDaySchedule.push({
+                                  date: scheduleArray[i].date, 
+                                  time: scheduleArray[i].time,
+                                  realTime: scheduleArray[i].realTime, 
+                                  completed: scheduleArray[i].completed, 
+                                  text: scheduleArray[i].text, 
+                                  color: scheduleArray[i].color
+                          });
+          }
+        }
         // 정보를 array에 넣기
         dates.push({
           // 연월일 정보
-          yearMonthDay: date.format("YYYY-MM-DD"),
+          yearMonthDay: compareYMD,
           // 날짜 정보
           getday: date.format('D'),
           // 휴일
-          isHolyDay: false
+          isHolyDay: false,
+          // 해당일 스케쥴
+          thisDaySchedule: thisDaySchedule
         });
       }
       // array를 리턴
@@ -108,6 +163,13 @@ class Week extends React.Component {
         if(moment(dateInfo.yearMonthDay).isSame(seletedDay, 'day')){
           className += " selected"
         }
+        // 모달창 띄우기
+        const turnModal = (e) => {
+          this.setState({
+            ModalOn: !this.state.ModalOn,
+          });
+        };
+        console.log(dateInfo.thisDaySchedule)
 
         return (
           <div 
@@ -120,6 +182,20 @@ class Week extends React.Component {
           <label className="date-day">
             {dateInfo.getday}
           </label>
+           {dateInfo.thisDaySchedule.map((plan, idx) => {
+             className = "todayPlan "
+             className += plan.color
+             return (
+               <div className = {className}
+               key={idx}
+               completed= {plan.completed}
+               >
+                 {plan.text}
+              </div>
+             );
+           })}
+          <div className="toDaySchedule">
+          </div>
           </div>
         )
       })
@@ -139,4 +215,4 @@ class Week extends React.Component {
   }
 
 
-export default Calendar;
+export default connect(mapStateTopProps, mapDispatchToProps)(Calendar);
