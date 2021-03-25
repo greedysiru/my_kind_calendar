@@ -260,7 +260,7 @@ class Week extends React.Component {
                data-date = {plan.date}
                data-color = {plan.color}
                >
-                 {plan.text}
+                 {plan.completed? "☑️  ":null}{plan.text}
               </div>
              );
            })}

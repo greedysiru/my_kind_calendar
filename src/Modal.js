@@ -1,5 +1,7 @@
 import React from 'react';
 
+import ReactDOM from 'react-dom';
+
 // 애니메이션
 import Zoom from 'react-reveal/Zoom';
 
@@ -40,8 +42,22 @@ class Modal extends React.Component {
       
     };
   }
-  
+
+  // 다른 곳 클릭시 나가기
   componentDidMount(){
+    document.addEventListener('click', this.clikOutSide, true);
+  }
+
+  componentWillUnmount(){
+    document.removeEventListener('click', this.clikOutSide, true);
+  }
+
+  clikOutSide = event => {
+    const domNode = ReactDOM.findDOMNode(this);
+    console.log(!domNode || !domNode.contains(event.target))
+    if (!domNode || !domNode.contains(event.target)){
+      this.props.turnOffModal();
+    }
   }
 
   // completed 업데이트 함수
@@ -63,6 +79,8 @@ class Modal extends React.Component {
     this.props.delete(delete_item);
     this.props.turnOffModal();
   }
+
+
   
   // 렌더 함수 안에 리액트 앨리먼트 넣기
   render() {
