@@ -18,9 +18,13 @@ import Dayheader from "./Dayheader";
 import Modal from "./Modal";
 import { FilterTiltShiftSharp } from '@material-ui/icons';
 
+// 스피너
+import Sppiner from "./Spinner";
+
 // 스토어가 가진 상태값을 props로
 const mapStateTopProps = (state) => ({
   plan: state.schedule.plan,
+  is_loaded: state.schedule.is_loaded,
 });
 
 // 액션 생성 함수를 props로
@@ -111,6 +115,8 @@ class Calendar extends React.Component {
       // DayHeader props
       daysArray = {this.props.daysArray}
       />
+      {!this.props.is_loaded? (<Sppiner/>):
+      (<div className="calendar-container">
       {this.saveWeeks(this.props.calendarYM)}
       {this.state.modalStatus && 
             <Modal
@@ -121,6 +127,7 @@ class Calendar extends React.Component {
             turnOffModal = {this.turnOffModal}
             />
           }
+      </div>)}
     </div>
     );
   }

@@ -7,8 +7,11 @@ const CREATE = 'schedule/CREATE';
 const UPDATE = 'schedule/UPDATE';
 const DELETE = 'schedule/DELETE';
 
+const LOADED = 'schdule/LOADED';
+
 // 초기값
 const initialState = {
+  is_loaded: false,
    plan: [
     //  {date: "2021-03-25", 
     //  time: 1000,
@@ -54,6 +57,10 @@ export const deleteSchedule = (schedule) => {
   return {type: DELETE, schedule};
 }
 
+export const isLoaded = (loaded) => {
+  return {type: LOADED, loaded};
+}
+
 // 파이어베이스와 연동
 const schedule_db = firestore.collection("calendar");
 export const loadscheduleFB = () => {
@@ -77,6 +84,7 @@ export const createScheduleFB = (schedule) => {
     schedule_db.add(schedule_data).then((docRef) => {
       schedule_data = {...schedule_data,};
       dispatch(createSchedule(schedule_data));
+      dispatch(isLoaded(true));
     }).catch((err) => {
       window.alert('오류가 발생했습니다. 다시 시도해주십시오.')
     });
@@ -95,6 +103,7 @@ export const updateScheduleFB = (schedule) => {
     schedule_data = {...schedule_data, completed: true};
     schedule_db.doc(schedule_data.id).update(schedule_data).then((res) => {
       dispatch(updateSchedule(schedule));
+      dispatch(isLoaded(true));
     }).catch((err) => {
       console.log('err');
     });
@@ -114,6 +123,7 @@ export const deleteScheduleFB = (schedule) => {
   console.log(schedule)
   schedule_db.doc(schedule_data.id).delete().then((res) => {
     dispatch(deleteSchedule(Schedule));
+    dispatch(isLoaded(true));
   }).catch((err) => {
     console.log('err');
   });
@@ -125,7 +135,7 @@ export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case "schedule/LOAD":{
       if(action.schedule.length > 0){
-        return {plan: action.schedule};
+        return {plan: action.schedule, is_loaded: true};
       }
       return state;
     }
@@ -151,6 +161,10 @@ export default function reducer(state = initialState, action = {}) {
         } 
       });
       return {plan: schedule_plan};
+    }
+
+    case "schedule/LOADED": {
+      return {...state, is_loaded: action.loaded};
     }
 
     default:
