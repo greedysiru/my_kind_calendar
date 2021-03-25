@@ -3,6 +3,9 @@ import React from 'react';
 // moment 라이브러리
 import moment from 'moment';
 
+// 애니메이션
+import Fade from 'react-reveal/Fade';
+
 // firebase
 import {firestore} from "./firebase";
 
@@ -49,7 +52,8 @@ class Calendar extends React.Component {
     // 모달에 전달할 정보들
       modalPlanText : "",
       modalPlanDate : "",
-      modalPlanCompleted : false
+      modalPlanCompleted : false,
+      modalPlanColor : ""
     };
   }
   // 모달창 띄우기
@@ -58,6 +62,7 @@ class Calendar extends React.Component {
     this.state.modalPlanText = e.target.dataset.text;
     this.state.modalPlanDate = e.target.dataset.date;
     this.state.modalPlanCompleted = e.target.dataset.completed;
+    this.state.modalPlanColor = e.target.dataset.color;
     this.forceUpdate();
   }
     // 모달창 끄기
@@ -110,6 +115,7 @@ class Calendar extends React.Component {
   // 렌더 함수 안에 리액트 앨리먼트 넣기
   render() {
     return(
+      <Fade>
     <div className="Calendar">
       <Dayheader
       // DayHeader props
@@ -124,11 +130,13 @@ class Calendar extends React.Component {
             planText = {this.state.modalPlanText}
             planDate = {this.state.modalPlanDate}
             planCompleted = {this.state.modalPlanCompleted}
+            planColor = {this.state.modalPlanColor}
             turnOffModal = {this.turnOffModal}
             />
           }
       </div>)}
     </div>
+    </Fade>
     );
   }
 }
@@ -250,6 +258,7 @@ class Week extends React.Component {
                onClick={this.props.turnOnModal}
                data-text = {plan.text}
                data-date = {plan.date}
+               data-color = {plan.color}
                >
                  {plan.text}
               </div>

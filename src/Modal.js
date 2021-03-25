@@ -1,5 +1,8 @@
 import React from 'react';
 
+// 애니메이션
+import Zoom from 'react-reveal/Zoom';
+
 // 리덕스
 import {connect} from 'react-redux';
 
@@ -39,7 +42,6 @@ class Modal extends React.Component {
   }
   
   componentDidMount(){
-    
   }
 
   // completed 업데이트 함수
@@ -65,8 +67,9 @@ class Modal extends React.Component {
   // 렌더 함수 안에 리액트 앨리먼트 넣기
   render() {
     return(
+      <Zoom>
     <div className="Modal">
-      <h1>{this.props.planText}</h1>
+      <h1 className ={this.props.planColor}>{this.props.planText}</h1>
       <h2>{this.props.planDate}</h2>
       <h3>{this.props.planCompleted === "true" ? '😎' : '🥺'}</h3>
       <h4>{this.props.planCompleted === "true" ? '완료했습니다!' : '완료하지 못했어요'}</h4>
@@ -88,6 +91,7 @@ class Modal extends React.Component {
         </Button>)}
         </ButtonGroup>
     </div>
+    </Zoom>
     );
   }
 }

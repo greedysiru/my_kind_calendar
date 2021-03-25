@@ -1,5 +1,8 @@
 import React from 'react';
 
+// 애니메이션
+import Zoom from 'react-reveal/Zoom';
+
 // Route 라이브러리
 import { Route } from 'react-router-dom'
 import {withRouter} from 'react-router';
@@ -16,6 +19,7 @@ import img from './calendar.png';
 const FirstScreen = (props) => {
   // 컴포넌트가 보여줄 ui 요소(react element)
   return (
+    <Zoom>
   	<div className ="FirstScreen Screen">
       <img className ="calimg" src={img}
       onClick={() => {
@@ -35,6 +39,7 @@ const FirstScreen = (props) => {
       </a>
       </div>
     </div>
+    </Zoom>
   );
 }
 

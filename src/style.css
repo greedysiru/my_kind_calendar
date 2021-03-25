@@ -144,6 +144,17 @@ body {
   color: #393e46;
 }
 
+/* animation */
+/*row effect */
+@keyframes scale-up-center {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.08);
+  }
+}
+
 /* default settings */
 h1 {
   font-size: 2.5em;
@@ -193,6 +204,16 @@ h4 {
   align-items: center;
 }
 
+.calimg:hover {
+  animation: scale-up-center 0.2s ease-in-out forwards;
+  will-change: transform;
+}
+
+.myblog:hover {
+  animation: scale-up-center 0.2s ease-in-out forwards;
+  will-change: transform;
+}
+
 /* App.js */
 .buttons {
   height: 20vh;
@@ -217,6 +238,15 @@ h4 {
   align-items: center;
   justify-content: center;
   background-color: #ffffff;
+}
+
+.Header-move {
+  cursor: pointer;
+}
+
+.Header-move:hover {
+  animation: scale-up-center 0.2s ease-in-out forwards;
+  will-change: transform;
 }
 
 /* Calendar.js */
@@ -300,6 +330,12 @@ h4 {
   text-align: left;
   color: whitesmoke;
   border-radius: 2px;
+  cursor: pointer;
+}
+
+.todayPlan:hover {
+  animation: scale-up-center 0.2s ease-in-out forwards;
+  will-change: transform;
 }
 
 .a {
@@ -357,6 +393,21 @@ h4 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.Modal > .a {
+  color: #656565;
+  background-color: #ffffff;
+}
+
+.Modal > .b {
+  color: #f50057;
+  background-color: #ffffff;
+}
+
+.Modal > .c {
+  color: #43a047;
+  background-color: #ffffff;
 }
 
 .Modal > h1,

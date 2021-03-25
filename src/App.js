@@ -1,5 +1,8 @@
 import React from 'react';
 
+// 애니메이션
+import Zoom from 'react-reveal/Zoom';
+
 // firebase
 import {firestore} from "./firebase";
 
@@ -100,6 +103,7 @@ class App extends React.Component {
   // 렌더 함수 안에 리액트 앨리먼트 넣기
   render() {
     return(
+      
     <div className="App Screen">
       {/* 라우트, 스위치 적용 */}
         <Switch>
