@@ -68,8 +68,9 @@ class Modal extends React.Component {
     <div className="Modal">
       <h1>{this.props.planText}</h1>
       <h2>{this.props.planDate}</h2>
-      <h3>{this.props.planCompleted === "true" ? '완료' : '미완료'}</h3>
-      <ButtonGroup color="primary" aria-label="outlined primary button group">
+      <h3>{this.props.planCompleted === "true" ? '😎' : '🥺'}</h3>
+      <h4>{this.props.planCompleted === "true" ? '완료했습니다!' : '완료하지 못했어요'}</h4>
+      <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group">
         <Button
          onClick= {this.props.turnOffModal}
         >
@@ -80,12 +81,12 @@ class Modal extends React.Component {
         >
           삭제
         </Button>
-        <Button
+        {this.props.planCompleted === "true" ? null :(<Button
           onClick={this.updateCompleted}
         >
           완료
-        </Button>
-      </ButtonGroup>
+        </Button>)}
+        </ButtonGroup>
     </div>
     );
   }

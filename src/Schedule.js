@@ -170,7 +170,10 @@ class Schedule extends React.Component {
   render(){
   return (
     <div className="Schedule">
+      <div className="Schedule-contents">
+        <span className = "imo">🤔</span>
       <DateTimePickers/>
+      <div className ="input-text">
       <TextField
           // 입력값 참조
           inputRef={this.text}
@@ -181,22 +184,28 @@ class Schedule extends React.Component {
           placeholder="상세"
           variant="outlined"
         />
-        <div className="Radio">
-        태그 색상<RadioButtons/>
         </div>
-        <ButtonGroup color="primary" aria-label="outlined primary button group">
-        <Button
+        <div className="Radio">
+        <RadioButtons/>
+        </div>
+        <ButtonGroup  variant="contained" aria-label="contained primary button group">
+        <Button color= "secondary"
          onClick={()=>{
           this.props.history.goBack();
-        }}>
+        }}
+        style={{ fontSize: "1em" }}
+        >
           뒤로가기
         </Button>
-        <Button
+        <Button color= "primary"
         onClick={this.addSchedulePlan}
+        style={{ fontSize: "1em" }}
         >
           추가하기
         </Button>
       </ButtonGroup>
+
+      </div>
     </div>
   );
 }

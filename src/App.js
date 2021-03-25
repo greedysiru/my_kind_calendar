@@ -24,8 +24,8 @@ import FirstScreen from './FirstScreen';
 // Not Found
 import NotFound from './NotFound'
 
-// test용 css
-import './test.css';
+// CSS
+import './style.css';
 
 // meterial UI
 import Fab from '@material-ui/core/Fab';
@@ -43,7 +43,7 @@ class App extends React.Component {
       yearAndMonth: moment(),
       today : moment(),
       // days 배열
-      daysArray: ["일", "월", "화", "수", "목", "금", "토"],
+      daysArray: ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"],
       // 선택된 날, 날짜는 YYYY-MM-DD 형식으로 표시
       selected: moment().format("YYYY-MM-DD"),
       // true: 모든 일정, false: 완료 일정 필터링
@@ -100,7 +100,7 @@ class App extends React.Component {
   // 렌더 함수 안에 리액트 앨리먼트 넣기
   render() {
     return(
-    <div className="App">
+    <div className="App Screen">
       {/* 라우트, 스위치 적용 */}
         <Switch>
           <Route path="/" exact component={FirstScreen}/>
@@ -109,7 +109,7 @@ class App extends React.Component {
                 <div className="container">
                   <Header
                   // Header props
-                  yearAndMonth = {this.state.yearAndMonth.format("YYYY년 MM월")}
+                  yearAndMonth = {this.state.yearAndMonth.format("YYYY MMMM")}
                   today = {this.state.today.format("오늘 YYYY - MM - DD")}
                   moveMonth = {this.moveMonth}
                   />
@@ -122,13 +122,25 @@ class App extends React.Component {
                   filtering = {this.state.filtering}
                   />
                   {/* 플로팅 버튼 */}
-                  <Button
+                  <div className = "buttons">
+                  <div className =" buttons-contents">
+                    {this.state.filtering ? (<Button
                    variant="contained"
-                   className = "filteringButton" 
                    onClick = {this.fnFiltering}
+                   color="primary"
                    >
-                  {!this.state.filtering ? '모든 일정 보기' : '완료 일정 보기'}                    
-                    </Button>
+                     ALL
+                    </Button>) : 
+                    <Button
+                   variant="contained"
+                   onClick = {this.fnFiltering}
+                   color="secondary"
+                   >
+                     DONE
+                    </Button>}                    
+                  
+                    </div>
+                    <div className =" buttons-contents">
                   <Fab 
                   color="primary"
                   onClick={() =>
@@ -137,6 +149,8 @@ class App extends React.Component {
                   >
                   <EditIcon/>
                   </Fab>
+                  </div>
+                  </div>
                 </div>
                 )}/>
           <Route path="/schedule"

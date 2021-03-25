@@ -18,20 +18,18 @@ class Header extends React.Component {
   render() {
     return(
     <div className="Header">
-      <div>
-        {this.props.yearAndMonth}
-      </div>
-      <div>
         {/* 이전 월 이동 버튼 */}
         <ArrowLeftIcon
+        style={{ fontSize: "4em" }}
         onClick = {() => {this.props.moveMonth(-1)}}
         />
-        {this.props.today}
+        <h1>{this.props.yearAndMonth}</h1>
         {/* 다음 월 이동 버튼 */}
         <ArrowRightIcon
+        style={{ fontSize: "4em" }}
         onClick = {() => {this.props.moveMonth(1)}}
         />
-      </div>
+
     </div>
     );
   }

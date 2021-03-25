@@ -1,0 +1,378 @@
+/* reset */
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+input:focus {
+  outline: none;
+  background-color: var(--color-prime);
+}
+
+a {
+  color: #2e363e;
+  text-decoration: none;
+}
+
+/* font */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  width: 100vw;
+  height: 100vh;
+  background-color: #c4c4c4;
+  color: #393e46;
+}
+
+/* default settings */
+h1 {
+  font-size: 2.5em;
+  font-weight: 600;
+}
+
+h2 {
+  font-size: 2em;
+  font-weight: 400;
+}
+
+h3 {
+  font-size: 2.5em;
+}
+
+h4 {
+  font-size: 1.4em;
+  font-weight: 400;
+}
+
+.Screen {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.container {
+  width: 93vw;
+  height: 90vh;
+}
+
+/* FristScreen.js */
+.calimg {
+  width: 25vw;
+  margin-bottom: 3em;
+  cursor: pointer;
+}
+
+.myblog {
+  width: 15vw;
+  font-size: 2em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* App.js */
+.buttons {
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 75vh;
+  left: 85vw;
+}
+
+.buttons-contents {
+  margin-bottom: 4vh;
+  width: 10vw;
+  display: flex;
+  justify-content: center;
+}
+
+/* Header.js */
+.Header {
+  display: flex;
+  height: 10vh;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+}
+
+/* Calendar.js */
+.Calendar {
+  flex-grow: 1;
+  background-color: #ffffff;
+}
+
+.calendar-container {
+  background-color: #e6e5e6;
+  height: 72vh;
+  width: 100%;
+  overflow: auto;
+}
+
+.calendar-container::-webkit-scrollbar {
+  width: 10px;
+}
+.calendar-container::-webkit-scrollbar-thumb {
+  background-color: #2f3542;
+}
+.calendar-container::-webkit-scrollbar-track {
+  background-color: grey;
+}
+
+.days-header {
+  width: 100%;
+  display: flex;
+  height: 50px;
+  background-color: #ffffff;
+  border-bottom: 1.5px solid #c7c7cc;
+}
+
+.day-col {
+  width: 14.2857143%;
+  text-align: center;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  border: 0.1px solid white;
+  font-size: 1.5em;
+  line-height: 50px;
+}
+
+.Week {
+  width: 100%;
+  display: flex;
+}
+
+.date {
+  text-align: right;
+  box-sizing: border-box;
+  position: relative;
+  flex-basis: 14.2857143%;
+  border-bottom: 0.1px solid #e6e5e6;
+  border-right: 0.1px solid #e6e5e6;
+  border-top: none;
+  background-color: #ffffff;
+  height: 17.9vh;
+  padding-top: 0.5em;
+  padding-right: 0.5em;
+  font-size: 1.1em;
+  font-weight: 500;
+}
+
+.notThisMonth {
+  background-color: #f5f5f5;
+  color: #7e7e7e;
+}
+
+.selected {
+  background-color: #cad1d4;
+}
+
+.todayPlan {
+  margin-top: 0.3em;
+  margin-left: 0.5em;
+  font-size: 0.8em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  padding-left: 0.2em;
+  text-align: left;
+  color: whitesmoke;
+  border-radius: 2px;
+}
+
+.a {
+  background-color: #656565;
+}
+
+.b {
+  background-color: #f50057;
+}
+
+.c {
+  background-color: #43a047;
+}
+
+/* Schedule.js */
+.Schedule {
+  background-color: #ffffff;
+  height: 90vh;
+  width: 93vw;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.Radio {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Schedule-contents {
+  display: flex;
+  flex-direction: column;
+  height: 70%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.imo {
+  font-size: 5em;
+}
+
+/* Modal.js */
+.Modal {
+  width: 60vw;
+  height: 60vh;
+  position: fixed;
+  top: 20vh;
+  left: 20vw;
+  background-color: #ffffff;
+  box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.Modal > h1,
+.Modal > h2,
+.Modal > h3,
+.Modal > h4 {
+  margin-bottom: 5vh;
+}
+
+/* spinner */
+.Spinner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  height: 72vh;
+  width: 93vw;
+}

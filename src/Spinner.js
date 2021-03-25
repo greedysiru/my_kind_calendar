@@ -7,7 +7,8 @@ const Spinner = (props) => {
   // 컴포넌트가 보여줄 ui 요소(react element)
   return (
   	<div className ="Spinner">
-    	스피너
+      <h1>😵</h1>
+     <h1>기다려주세요!</h1>
       
     </div>
   );
