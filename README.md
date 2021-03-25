@@ -1,70 +1,67 @@
-# Getting Started with Create React App
+# react_calendar
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+* [mykindcalendar](http://mykindcalendar.site/)
 
-## Available Scripts
+![calendar](images/calendar.png)
 
-In the project directory, you can run:
+## 프로젝트 설명
 
-### `yarn start`
+* React를 이용한 캘린더, 스케쥴러 웹사이트
+  * 원페이지 웹사이트
+* BaaS(Backend as a Service)를 활용
+  * [Firebase](https://firebase.google.com/?hl=ko)
+* 리덕스와 Firebase를 활용한 React 데이터 제어
+* moment를 활용한 달력 생성 알고리즘
+* react-router를 활용하여 컴포넌트마다 url 부여
+  * history로 뒤로가기 구현
+* react-reveal 라이브러리의 애니메이션 효과
+* CSS 기반 화면 구성
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `yarn test`
+## 사용 방법
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* 캘린더 상단의 버튼으로 월 단위로 이동
+* 현재 선택한 날짜는 별도의 색상으로 표시
+  * 다른 달의 날짜를 클릭시, 해당 월로 이동
+* 현재 월에 속하지 않는 날은 다른 색상으로 표시
+* 해당하는 날짜의 스케쥴 표시
+  * 완료된 스케쥴, 전체 스케쥴 토글 버튼으로 전환
+  * 스케쥴 클릭시, 팝업창으로 해당 스케쥴 정보 표시
+  * 완료하기 버튼으로 완료처리 가능
+* 스크롤로 더 많은 날짜 확인 가능
+* 원하는 일자, 시간에 스케쥴 추가 가능
+  * 일정을 구분할 색상 설정 가능
+* 캘린더 내 일정은 시간 순으로 정렬
 
-### `yarn build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Components
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 첫 화면
 
-### `yarn eject`
+![start](images/start.png)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### 달력
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![main](images/main.png)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### 일정 생성
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+![create](images/create.png)
 
-## Learn More
+### 팝업
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![popup](images/popup.png)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## License
 
-### Analyzing the Bundle Size
+### MIT
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Reference
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+https://www.flaticon.com/
