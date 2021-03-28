@@ -35,7 +35,7 @@ import Fab from '@material-ui/core/Fab';
 import EditIcon from '@material-ui/icons/Edit';
 import Button from '@material-ui/core/Button';
 
-// 가로모드 감지
+// 가로모드 감지, 경고창
 if (window.matchMedia('(orientation: portrait)').matches) {
   window.alert('이 웹사이트는 가로모드를 권장합니다. 가로모드로 전환해주세요 🙏')
 }
