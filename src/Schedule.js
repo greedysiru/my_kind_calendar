@@ -1,12 +1,12 @@
 import React from 'react';
 
 // histroy
-import {withRouter} from 'react-router';
+import { withRouter } from 'react-router';
 
 // 리덕스 스토어 연결
 import { connect } from 'react-redux';
 // 액션 생성 함수 가져오기
-import {createScheduleFB} from './redux/modules/schedule';
+import { createScheduleFB } from './redux/modules/schedule';
 
 
 
@@ -44,7 +44,7 @@ export function DateTimePickers(props) {
   return (
     <form className={classes.container} noValidate>
       <TextField
-        onChange={(event)=>{
+        onChange={(event) => {
           dateTime = event.target.value
         }}
         defaultValue=""
@@ -63,7 +63,7 @@ export function DateTimePickers(props) {
 // Radio
 const GreenRadio = withStyles({
   root: {
-    
+
     '&$checked': {
       color: green[600],
     },
@@ -114,11 +114,11 @@ const mapStateTopProps = (state) => ({
 
 // 액션 생성 함수를 props로
 const mapDispatchToProps = (dispatch) => ({
-  
+
   create: (new_item) => {
     dispatch(createScheduleFB(new_item));
   }
-}); 
+});
 
 
 class Schedule extends React.Component {
@@ -137,78 +137,82 @@ class Schedule extends React.Component {
     const new_dateTime = dateTime;
     const new_radioSelected = radioSelected;
     // 날짜, 시간 필수 입력 경고창
-    if (new_text =="" || new_dateTime == ""){
+    if (new_text == "" || new_dateTime == "") {
       window.alert('날짜와 시간을 전부 입력해주십시오.')
-    } else{
-    // 문자열 자르기
-    let split_dateTime = new_dateTime.split('T');
-    // 실제 시간 저장
-    const realTime = split_dateTime[1];
-    // 시간 : 제거 후 정수형 변환
-    split_dateTime[1] = parseInt(split_dateTime[1].replace(':', ''));
-    // 딕셔너리로 변환
-    const new_plan ={date: split_dateTime[0], 
-                    time: split_dateTime[1],
-                    realTime: realTime, 
-                    completed: false, 
-                    text: new_text, 
-                    color: new_radioSelected}
-    // 스토어에 저장
-    this.props.create(new_plan);
-    // 뒤로가기
-    this.props.history.goBack();}
+    } else {
+      // 문자열 자르기
+      let split_dateTime = new_dateTime.split('T');
+      // 실제 시간 저장
+      const realTime = split_dateTime[1];
+      // 시간 : 제거 후 정수형 변환
+      split_dateTime[1] = parseInt(split_dateTime[1].replace(':', ''));
+      // 딕셔너리로 변환
+      const new_plan = {
+        date: split_dateTime[0],
+        time: split_dateTime[1],
+        realTime: realTime,
+        completed: false,
+        text: new_text,
+        color: new_radioSelected
+      }
+      // 스토어에 저장
+      this.props.create(new_plan);
+      window.alert('일정이 추가 되었습니다.')
+      // 뒤로가기
+      this.props.history.goBack();
+    }
   }
   // 렌더링
-  componentDidMount(){
+  componentDidMount() {
     dateTime = ""
   }
 
   // 리렌더링
-  componentDidUpdate(prevProps, prevState){
-}
+  componentDidUpdate(prevProps, prevState) {
+  }
 
-  render(){
-  return (
-    <div className="Schedule">
-      <div className="Schedule-contents">
-        <span className = "imo">🤔</span>
-      <DateTimePickers/>
-      <div className ="input-text">
-      <TextField
-          // 입력값 참조
-          inputRef={this.text}
-          type="text"
-          required
-          id="outlined-required"
-          label=""
-          placeholder="상세"
-          variant="outlined"
-        />
-        </div>
-        <div className="Radio">
-        <RadioButtons/>
-        </div>
-        <ButtonGroup  variant="contained" aria-label="contained primary button group">
-        <Button color= "secondary"
-         onClick={()=>{
-          this.props.history.goBack();
-        }}
-        style={{ fontSize: "1em" }}
-        >
-          뒤로가기
+  render() {
+    return (
+      <div className="Schedule">
+        <div className="Schedule-contents">
+          <span className="imo">🤔</span>
+          <DateTimePickers />
+          <div className="input-text">
+            <TextField
+              // 입력값 참조
+              inputRef={this.text}
+              type="text"
+              required
+              id="outlined-required"
+              label=""
+              placeholder="상세"
+              variant="outlined"
+            />
+          </div>
+          <div className="Radio">
+            <RadioButtons />
+          </div>
+          <ButtonGroup variant="contained" aria-label="contained primary button group">
+            <Button color="secondary"
+              onClick={() => {
+                this.props.history.goBack();
+              }}
+              style={{ fontSize: "1em" }}
+            >
+              뒤로가기
         </Button>
-        <Button color= "primary"
-        onClick={this.addSchedulePlan}
-        style={{ fontSize: "1em" }}
-        >
-          추가하기
+            <Button color="primary"
+              onClick={this.addSchedulePlan}
+              style={{ fontSize: "1em" }}
+            >
+              추가하기
         </Button>
-      </ButtonGroup>
+          </ButtonGroup>
 
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
 };
 
 

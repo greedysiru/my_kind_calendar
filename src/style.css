@@ -191,13 +191,13 @@ h4 {
 
 /* FristScreen.js */
 .calimg {
-  width: 25vw;
+  width: 25%;
   margin-bottom: 3em;
   cursor: pointer;
 }
 
 .myblog {
-  width: 15vw;
+  width: 15%;
   font-size: 2em;
   display: flex;
   justify-content: space-between;
@@ -216,17 +216,17 @@ h4 {
 
 /* App.js */
 .buttons {
-  height: 20vh;
+  height: 20%;
   display: flex;
   flex-direction: column;
   position: fixed;
-  top: 75vh;
-  left: 85vw;
+  top: 69%;
+  left: 87%;
+  width: auto;
 }
 
 .buttons-contents {
   margin-bottom: 4vh;
-  width: 10vw;
   display: flex;
   justify-content: center;
 }
@@ -234,7 +234,7 @@ h4 {
 /* Header.js */
 .Header {
   display: flex;
-  height: 10vh;
+  height: 12%;
   align-items: center;
   justify-content: center;
   background-color: #ffffff;
@@ -251,13 +251,14 @@ h4 {
 
 /* Calendar.js */
 .Calendar {
-  flex-grow: 1;
   background-color: #ffffff;
+  height: 88%;
+  padding: 0px;
 }
 
 .calendar-container {
   background-color: #e6e5e6;
-  height: 72vh;
+  height: 88%;
   width: 100%;
   overflow: auto;
 }
@@ -274,11 +275,13 @@ h4 {
 
 .days-header {
   width: 100%;
+  padding-bottom: 5px;
   display: flex;
-  height: 50px;
+  height: 12%;
   background-color: #ffffff;
   border-bottom: 1.5px solid #c7c7cc;
 }
+
 
 .day-col {
   width: 14.2857143%;
@@ -292,23 +295,25 @@ h4 {
 
 .Week {
   width: 100%;
+  height: 25%;
   display: flex;
 }
 
 .date {
+  height: 100%;
   text-align: right;
   box-sizing: border-box;
   position: relative;
-  flex-basis: 14.2857143%;
+  width: 14.2857143%;
   border-bottom: 0.1px solid #e6e5e6;
   border-right: 0.1px solid #e6e5e6;
   border-top: none;
   background-color: #ffffff;
-  height: 17.9vh;
   padding-top: 0.5em;
   padding-right: 0.5em;
   font-size: 1.1em;
   font-weight: 500;
+  overflow-y: auto;
 }
 
 .notThisMonth {
@@ -378,15 +383,20 @@ h4 {
 
 .imo {
   font-size: 5em;
+  margin-bottom: 5px;
+}
+
+.makeStyles-container-16 {
+  margin-bottom: 5px;
 }
 
 /* Modal.js */
 .Modal {
-  width: 60vw;
-  height: 60vh;
+  width: 70vw;
+  height: 70vh;
   position: fixed;
-  top: 20vh;
-  left: 20vw;
+  top: 16vh;
+  left: 15vw;
   background-color: #ffffff;
   box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
   display: flex;

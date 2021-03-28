@@ -6,10 +6,10 @@ import ReactDOM from 'react-dom';
 import Zoom from 'react-reveal/Zoom';
 
 // 리덕스
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 // 리덕스 액션 생성 함수
-import {deleteScheduleFB, updateScheduleFB, loadscheduleFB} from './redux/modules/schedule';
+import { deleteScheduleFB, updateScheduleFB, loadscheduleFB } from './redux/modules/schedule';
 
 // material-ui
 import Button from '@material-ui/core/Button';
@@ -31,31 +31,31 @@ const mapDispatchToProps = (dispatch) => ({
   load: () => {
     dispatch(loadscheduleFB());
   }
-}); 
+});
 
 // 클래스형 컴포넌트
 class Modal extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     // Modal 컴포넌트의 state 정의
     this.state = {
-      
+
     };
   }
 
   // 다른 곳 클릭시 나가기
-  componentDidMount(){
+  componentDidMount() {
     document.addEventListener('click', this.clikOutSide, true);
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     document.removeEventListener('click', this.clikOutSide, true);
   }
 
   clikOutSide = event => {
     const domNode = ReactDOM.findDOMNode(this);
     console.log(!domNode || !domNode.contains(event.target))
-    if (!domNode || !domNode.contains(event.target)){
+    if (!domNode || !domNode.contains(event.target)) {
       this.props.turnOffModal();
     }
   }
@@ -67,6 +67,7 @@ class Modal extends React.Component {
       date: this.props.planDate,
     }
     this.props.update(update_item);
+    window.alert('완료처리 되었습니다.')
     this.props.turnOffModal()
   }
 
@@ -77,39 +78,40 @@ class Modal extends React.Component {
       text: this.props.planText,
     }
     this.props.delete(delete_item);
+    window.alert('삭제처리 되었습니다.')
     this.props.turnOffModal();
   }
 
 
-  
+
   // 렌더 함수 안에 리액트 앨리먼트 넣기
   render() {
-    return(
+    return (
       <Zoom>
-    <div className="Modal">
-      <h1 className ={this.props.planColor}>{this.props.planText}</h1>
-      <h2>{this.props.planDate}</h2>
-      <h3>{this.props.planCompleted === "true" ? '😎' : '🥺'}</h3>
-      <h4>{this.props.planCompleted === "true" ? '완료했습니다!' : '완료하지 못했어요'}</h4>
-      <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group">
-        <Button
-         onClick= {this.props.turnOffModal}
-        >
-          닫기
+        <div className="Modal">
+          <h1 className={this.props.planColor}>{this.props.planText}</h1>
+          <h2>{this.props.planDate}</h2>
+          <h3>{this.props.planCompleted === "true" ? '😎' : '🥺'}</h3>
+          <h4>{this.props.planCompleted === "true" ? '완료했습니다!' : '완료하지 못했어요'}</h4>
+          <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group">
+            <Button
+              onClick={this.props.turnOffModal}
+            >
+              닫기
         </Button>
-        <Button
-         onClick={this.deleteSchedule}
-        >
-          삭제
+            <Button
+              onClick={this.deleteSchedule}
+            >
+              삭제
         </Button>
-        {this.props.planCompleted === "true" ? null :(<Button
-          onClick={this.updateCompleted}
-        >
-          완료
-        </Button>)}
-        </ButtonGroup>
-    </div>
-    </Zoom>
+            {this.props.planCompleted === "true" ? null : (<Button
+              onClick={this.updateCompleted}
+            >
+              완료
+            </Button>)}
+          </ButtonGroup>
+        </div>
+      </Zoom>
     );
   }
 }
